@@ -1,4 +1,5 @@
-{"1": "http://static.sfdict.com/staticrep/dictaudio/H03/H0366100.mp3",
+const GhostBoxAudio = {
+"1": "http://static.sfdict.com/staticrep/dictaudio/H03/H0366100.mp3",
 "2": "http://static.sfdict.com/staticrep/dictaudio/S03/S0394000.mp3",
 "3": "http://s3.amazonaws.com/audio.vocabulary.com/1.0/us/0/1UXRDYLWQWCBT.mp3",
 "4": "http://s3.amazonaws.com/audio.vocabulary.com/1.0/us/0/A8DSM8K9PIK2.mp3",
@@ -497,4 +498,5 @@
 "497": "http://img2.tfd.com/pron/mp3/en/UK/d3/d3djdgdndfdysodys5sjststh7h3.mp3",
 "498": "http://img2.tfd.com/pron/mp3/en/US/df/dfdjdgdndfstdrh7.mp3",
 "499": "http://img2.tfd.com/pron/mp3/en/UK/dg/dgdjdgdndfstdrdrhn.mp3",
-"500": "http://www.oxforddictionaries.com/media/english/uk_pron/a/abl/ablat/ablation__gb_1.mp3"}
+"500": "http://www.oxforddictionaries.com/media/english/uk_pron/a/abl/ablat/ablation__gb_1.mp3" 
+};
