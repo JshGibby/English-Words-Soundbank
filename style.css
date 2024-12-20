@@ -1,0 +1,62 @@
+<title>Ghostbox Player</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #f0f0f0;
+    }
+
+    #ghostbox-button {
+      background-color: #444;
+      color: #fff;
+      border: none;
+      padding: 20px 40px;
+      font-size: 24px;
+      border-radius: 50px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s, transform 0.3s;
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    #ghostbox-button:hover {
+      background-color: #555;
+      transform: scale(1.05);
+    }
+
+    #ghostbox-button:active {
+      transform: scale(0.95);
+    }
+
+    #controls {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #controls label {
+      font-size: 18px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    #speed-slider {
+      width: 200px;
+    }
+
+    #speed-value {
+      margin-left: 10px;
+      font-weight: bold;
+    }
+  </style>

@@ -1,68 +1,9 @@
-<html><head><base href="https://example.com">
-  <title>Ghostbox Player</title>
-  <style>
-    body {
-      background-color: #1e1e1e;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #f0f0f0;
-    }
-
-    #ghostbox-button {
-      background-color: #444;
-      color: #fff;
-      border: none;
-      padding: 20px 40px;
-      font-size: 24px;
-      border-radius: 50px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: background-color 0.3s, transform 0.3s;
-      display: flex;
-      align-items: center;
-      margin: 10px 0;
-    }
-
-    #ghostbox-button:hover {
-      background-color: #555;
-      transform: scale(1.05);
-    }
-
-    #ghostbox-button:active {
-      transform: scale(0.95);
-    }
-
-    #controls {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    #controls label {
-      font-size: 18px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-
-    #speed-slider {
-      width: 200px;
-    }
-
-    #speed-value {
-      margin-left: 10px;
-      font-weight: bold;
-    }
-  </style>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
+
   <h1>Ghostbox Player</h1>
   <button id="ghostbox-button">👻 Ghostbox</button>
   <div id="controls">
@@ -71,103 +12,7 @@
   </div>
   <script src="https://unpkg.com/web-audio-daw"></script>
 
+  <script src="playback.js"></script>
 
-  <script>
-  const SESSIONSTORAGE_KEY = 'https://websim.ai'; // [1] Updated key to reflect the correct origin
-  let isPlaying = false;
-  let currentWad = null; // [1] Updated to use Wad instead of Audio
-  let playbackRate = 1.0;
-
-  // Function to fetch and save JSON content to SessionStorage
-  // Assuming the JSON URL is correctly pointed to the websim.ai resource
-  const JSON_URL = 'https://raw.githubusercontent.com/JshGibby/English-Words-Soundbank/refs/heads/main/SessionStorageShortened500.json'; // [1] Update this to the correct JSON URL
-  async function saveJsonToSessionStorage() {
-    try {
-      const response = await fetch(JSON_URL);
-      if (!response.ok) {
-        throw new Error('Failed to fetch JSON file.');
-      }
-      const jsonData = await response.json();
-      sessionStorage.setItem(SESSIONSTORAGE_KEY, JSON.stringify(jsonData));
-      console.log('JSON data saved to Session Storage.');
-    } catch (error) {
-      console.error('Error saving JSON to Session Storage:', error);
-    }
-  }
-
-  // Initialize SessionStorage with JSON content if it doesn't exist
-  if (!sessionStorage.getItem(SESSIONSTORAGE_KEY)) {
-    saveJsonToSessionStorage();
-  }
-
-  function getRandomAudioKey() {
-    return Math.floor(Math.random() * 500) + 1; // Random number between 1 and 500
-  }
-
-  function getAudioUrlFromSessionStorage(key) {
-    const ghostboxData = sessionStorage.getItem(SESSIONSTORAGE_KEY);
-    if (!ghostboxData) {
-      console.warn('Session Storage data is not available.');
-      return null;
-    }
-
-    const parsedData = JSON.parse(ghostboxData);
-    return parsedData[key] || null; // Return the audio URL or null if key not found
-  }
-
-  async function playNextAudio() {
-    if (!isPlaying) return;
-
-    const randomKey = getRandomAudioKey();
-    const audioUrl = getAudioUrlFromSessionStorage(randomKey);
-
-    if (!audioUrl) {
-      console.warn('No valid audio URL found for key:', randomKey);
-      playNextAudio(); // Skip to the next audio if URL is invalid
-      return;
-    }
-
-    // Using Wad to play the audio [1]
-    if (currentWad) {
-      currentWad.stop(); // Stop any currently playing audio
-    }
-    
-    currentWad = new Wad({ source: audioUrl, playbackRate: playbackRate });
-    currentWad.play().then(() => {
-      // Play the next audio after the current one ends
-      currentWad.on('ended', playNextAudio);
-    }).catch(error => {
-      console.warn('Error playing audio with Wad, skipping to next:', error);
-      playNextAudio(); // Skip to the next audio if playing fails
-    });
-  }
-
-  function updateGhostboxButton() {
-    const button = document.getElementById('ghostbox-button');
-    button.textContent = isPlaying? 'Stop Ghostbox' : '👻 Ghostbox';
-  }
-
-  document.getElementById('ghostbox-button').addEventListener('click', () => {
-    if (!isPlaying) {
-      isPlaying = true;
-      playNextAudio();
-    } else {
-      isPlaying = false;
-      if (currentWad) {
-        currentWad.stop();
-        currentWad = null;
-      }
-    }
-    updateGhostboxButton();
-  });
-
-  document.getElementById('speed-slider').addEventListener('input', e => {
-    playbackRate = parseFloat(e.target.value);
-    document.getElementById('speed-value').textContent = playbackRate.toFixed(2);
-    if (currentWad) {
-      currentWad.playbackRate = playbackRate; // [1]
-    }
-  });
-  </script>
 </body>
 </html>
