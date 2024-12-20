@@ -1,5 +1,4 @@
-  <script>
-  const SESSIONSTORAGE_KEY = 'https://websim.ai'; // [1] Updated key to reflect the correct origin
+const SESSIONSTORAGE_KEY = 'https://websim.ai'; // [1] Updated key to reflect the correct origin
   let isPlaying = false;
   let currentWad = null; // [1] Updated to use Wad instead of Audio
   let playbackRate = 1.0;
@@ -94,4 +93,3 @@
       currentWad.playbackRate = playbackRate; // [1]
     }
   });
-  </script>
